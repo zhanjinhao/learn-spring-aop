@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.isjinhao</groupId>
+    <artifactId>learn-spring-aop</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>aop-overview</module>
+        <module>spring-aop-feature</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <spring-version>5.2.2.RELEASE</spring-version>
+        <lombok-version>1.18.16</lombok-version>
+        <aspectj-version>1.9.6</aspectj-version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring-version}</version>
+            </dependency>
+            <!-- weaver包含了jrt（同限定名方式，不是依赖），所以不需要依赖这个包了 -->
+            <!--            <dependency>-->
+            <!--                <groupId>org.aspectj</groupId>-->
+            <!--                <artifactId>aspectjrt</artifactId>-->
+            <!--                <version>${aspectj-version}</version>-->
+            <!--            </dependency>-->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok-version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
