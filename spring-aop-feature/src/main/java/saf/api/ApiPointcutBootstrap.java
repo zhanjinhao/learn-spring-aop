@@ -1,8 +1,6 @@
 package saf.api;
 
 import saf.EchoServiceMethodInterceptor;
-import saf.pointcut.EchoServiceEchoMethodPointcut;
-import saf.pointcut.EchoServicePointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.ComposablePointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -10,23 +8,20 @@ import ao.DefaultEchoService;
 import ao.EchoService;
 
 /**
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since
  */
 public class ApiPointcutBootstrap {
 
     public static void main(String[] args) {
 
-        EchoServicePointcut echoServicePointcut = new EchoServicePointcut("echo", EchoService.class);
-
-        ComposablePointcut pointcut = new ComposablePointcut(EchoServiceEchoMethodPointcut.INSTANCE);
+        ComposablePointcut pointcut = new ComposablePointcut();
+        pointcut.union(EchoServiceEchoMethodPointcut.INSTANCE);
         // 组合实现
-        pointcut.intersection(echoServicePointcut.getClassFilter());
+        EchoServicePointcut echoServicePointcut = new EchoServicePointcut("echo");
         pointcut.intersection(echoServicePointcut.getMethodMatcher());
 
-
-        // 将 Pointcut 适配成 Advisor
-
+        // Base interface holding AOP advice (action to take at a joinpoint) and a filter determining the applicability of the advice (such as a pointcut). T
+        // 用 Pointcut 和 PointCut 适配成 Advisor
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, new EchoServiceMethodInterceptor());
 
         DefaultEchoService defaultEchoService = new DefaultEchoService();

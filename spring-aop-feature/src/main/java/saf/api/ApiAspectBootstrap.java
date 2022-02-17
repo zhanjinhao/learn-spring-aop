@@ -4,6 +4,7 @@ import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import saf.AspectConfiguration;
 
 /**
  * @Author ISJINHAO
@@ -18,7 +19,7 @@ public class ApiAspectBootstrap {
         // 创建 Proxy 工厂(AspectJ)
         AspectJProxyFactory proxyFactory = new AspectJProxyFactory(cache);
         // 增加 Aspect 配置类
-        proxyFactory.addAspect(ApiAspectConfiguration.class);
+        proxyFactory.addAspect(AspectConfiguration.class);
         // 设置暴露代理对象到 AopContext，设置为true，后续可以通过 AopContext.currentProxy() 获取
         proxyFactory.setExposeProxy(true);
 

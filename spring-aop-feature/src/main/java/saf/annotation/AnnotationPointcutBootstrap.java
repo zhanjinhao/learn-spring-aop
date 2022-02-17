@@ -1,27 +1,22 @@
 package saf.annotation;
 
+import ao.EchoService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import saf.AspectConfiguration;
 
-@Configuration // Configuration class
-@EnableAspectJAutoProxy // 激活 Aspect 注解自动代理
 public class AnnotationPointcutBootstrap {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(AnnotationPointcutBootstrap.class, AnnotationAspectConfiguration.class);
+        // 换成DefaultEchoService.class就不会生效
+        context.register(AspectConfiguration.class, AnnotationEchoService.class);
         context.refresh();
 
-        AnnotationPointcutBootstrap aspectJAnnotationDemo = context.getBean(AnnotationPointcutBootstrap.class);
-
-        aspectJAnnotationDemo.execute();
+        EchoService echoService = context.getBean(EchoService.class);
+        System.out.println(echoService.getClass());
+        System.out.println(echoService.echo("123"));
 
         context.close();
-    }
-
-    public void execute() {
-        System.out.println("execute()...");
     }
 
 }

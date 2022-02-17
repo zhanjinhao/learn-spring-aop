@@ -1,4 +1,4 @@
-package saf.api;
+package saf;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Pointcut;
  * @Date 2021/3/9 18:34
  */
 @Aspect
-public class ApiAspectConfiguration {
+public class AspectConfiguration {
 
     // pointcut  注意，它是描述信息，用于修饰join point
     @Pointcut("execution(public * *(..))")

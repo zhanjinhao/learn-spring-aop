@@ -1,5 +1,7 @@
 package ao;
 
+import org.springframework.context.annotation.Configuration;
+
 /**
  * @author ISJINHAO
  */

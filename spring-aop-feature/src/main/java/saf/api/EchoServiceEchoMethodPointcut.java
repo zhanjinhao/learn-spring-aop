@@ -1,4 +1,4 @@
-package saf.pointcut;
+package saf.api;
 
 import ao.EchoService;
 import org.springframework.aop.ClassFilter;
@@ -6,7 +6,6 @@ import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 /**
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
@@ -24,7 +23,8 @@ public class EchoServiceEchoMethodPointcut implements Pointcut {
         return new ClassFilter() {
             @Override
             public boolean matches(Class<?> clazz) {
-                return EchoService.class.isAssignableFrom(clazz); // 凡是 EchoService 接口或者子接口、子类均可
+                // 凡是 EchoService 接口或者子接口、子类均可
+                return EchoService.class.isAssignableFrom(clazz);
             }
         };
     }
@@ -34,9 +34,7 @@ public class EchoServiceEchoMethodPointcut implements Pointcut {
         return new MethodMatcher() {
             @Override
             public boolean matches(Method method, Class<?> targetClass) { // echo(String)
-                return "echo".equals(method.getName()) &&
-                        method.getParameterTypes().length == 1 &&
-                        Objects.equals(String.class, method.getParameterTypes()[0]);
+                return true;
             }
 
             @Override
