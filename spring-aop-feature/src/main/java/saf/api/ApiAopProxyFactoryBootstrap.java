@@ -1,15 +1,17 @@
 package saf.api;
 
-import saf.EchoServiceMethodInterceptor;
-import org.springframework.aop.framework.ProxyFactory;
 import ao.DefaultEchoService;
 import ao.EchoService;
+import org.springframework.aop.framework.AopProxy;
+import org.springframework.aop.framework.DefaultAopProxyFactory;
+import org.springframework.aop.framework.ProxyFactory;
+import saf.EchoServiceMethodInterceptor;
 
 /**
  * @Author ISJINHAO
  * @Date 2021/4/3 12:52
  */
-public class ApiProxyFactoryBootstrap {
+public class ApiAopProxyFactoryBootstrap {
 
     public static void main(String[] args) {
         DefaultEchoService defaultEchoService = new DefaultEchoService();
@@ -18,13 +20,11 @@ public class ApiProxyFactoryBootstrap {
 //        proxyFactory.setTargetClass(DefaultEchoService.class);
         // 添加 Advice 实现 MethodInterceptor < Interceptor < Advice
         proxyFactory.addAdvice(new EchoServiceMethodInterceptor());
-        //  获取代理对象，本质上也是通过DefaultAopProxyFactory创建代理对象
-        // 	public Object getProxy() {
-        //		return createAopProxy().getProxy();
-        //	}
-        EchoService echoService = (EchoService) proxyFactory.getProxy();
-        System.out.println(echoService.getClass());
-        System.out.println(echoService.echo("Hello,World"));
+        // 获取代理对象
+        DefaultAopProxyFactory defaultAopProxyFactory = new DefaultAopProxyFactory();
+        AopProxy aopProxy = defaultAopProxyFactory.createAopProxy(proxyFactory);
+        EchoService proxy = (EchoService) aopProxy.getProxy();
+        proxy.echo("hello");
     }
 
 }
