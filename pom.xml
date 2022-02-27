@@ -11,6 +11,7 @@
         <module>aop-overview</module>
         <module>spring-aop-feature</module>
         <module>spring-aop-tx-usage</module>
+        <module>spring-aop-usage</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -19,6 +20,9 @@
         <spring-version>5.2.2.RELEASE</spring-version>
         <lombok-version>1.18.16</lombok-version>
         <aspectj-version>1.9.6</aspectj-version>
+        <mybatis-version>3.5.5</mybatis-version>
+        <mybatis-spring-version>2.0.6</mybatis-spring-version>
+        <druid-version>1.2.8</druid-version>
     </properties>
 
     <dependencyManagement>
@@ -50,6 +54,33 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>${spring-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.27</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
