@@ -20,7 +20,7 @@ public class SpringManualTransactionTest {
     public static void main(String[] args) {
 
         ClassPathXmlApplicationContext context =
-                new ClassPathXmlApplicationContext("classpath:spring-tx-manual-context.xml");
+            new ClassPathXmlApplicationContext("classpath:spring-tx-manual-context.xml");
 
         PlatformTransactionManager transactionManager = (PlatformTransactionManager) context.getBean("dataSourceTransactionManager");
 
@@ -30,12 +30,17 @@ public class SpringManualTransactionTest {
         TxTestMapper mapper = sqlSession.getMapper(TxTestMapper.class);
 
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        def.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
         TransactionStatus status = transactionManager.getTransaction(def);
-
-        mapper.insert(new TxTest("manualSpring", "aha2"));
-
-        transactionManager.commit(status);
+        try {
+            mapper.insert(new TxTest("manualSpring", "aha2"));
+            transactionManager.commit(status);
+        } catch (Exception e) {
+            transactionManager.rollback(status);
+        } finally {
+            sqlSession.close();
+        }
 
     }
 
