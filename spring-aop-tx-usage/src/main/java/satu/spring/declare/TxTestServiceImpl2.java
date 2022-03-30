@@ -11,13 +11,13 @@ import satu.mybatis.TxTestMapper;
  * @Date 2022/2/26 23:01
  */
 @Component
-public class TxTestServiceImpl implements TxTestService {
+public class TxTestServiceImpl2 implements TxTestService {
 
     @Autowired
     private TxTestMapper txTestMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = Exception.class)
     public boolean insert(TxTest txTest) {
         return txTestMapper.insert(txTest) > 0;
     }

@@ -12,12 +12,14 @@ public class SpringDeclareTransactionTest {
     public static void main(String[] args) {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(DeclareConfiguration.class, TxTestServiceImpl.class);
+        context.register(DeclareConfiguration.class, TxTestServiceImpl.class, TxTestServiceImpl2.class);
 
         context.refresh();
 
-        TxTestService txTestService = context.getBean(TxTestService.class);
+        TxTestService txTestService = (TxTestService) context.getBean("txTestServiceImpl");
         txTestService.insert(new TxTest("springDeclare", "aha44"));
+        TxTestService txTestService2 = (TxTestService) context.getBean("txTestServiceImpl2");
+        txTestService2.insert(new TxTest("springDeclare2", "aha44"));
 
         context.close();
     }
